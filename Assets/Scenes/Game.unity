@@ -1699,7 +1699,7 @@ MonoBehaviour:
   typingSpeed: 0.04
   dialogueText: {fileID: 1887312455}
   namePotion: {fileID: 464700576}
-  potion: {fileID: 0}
+  potion: {fileID: 1617931097}
   mondisplay: {fileID: 0}
   slimeAnimation: {fileID: 627893082}
   inkJSON: {fileID: 4900000, guid: b137cc74dab69c24381ae9c364de2944, type: 3}
@@ -1708,6 +1708,9 @@ MonoBehaviour:
   - {fileID: 1611682284}
   - {fileID: 366010549}
   choiceText: []
+  typingSound: {fileID: 8300000, guid: 973661320a3796849ba17a7609aaa142, type: 3}
+  audioSource: {fileID: 0}
+  stopAudioSource: 1
 --- !u!1 &1158970457
 GameObject:
   m_ObjectHideFlags: 0

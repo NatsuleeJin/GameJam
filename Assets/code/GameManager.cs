@@ -16,11 +16,11 @@ public class GameManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Story currentStory;
-    [SerializeField] private TextMeshProUGUI namePotion; 
+    [SerializeField] private TextMeshProUGUI namePotion;
     [SerializeField] private Animator potion;
     [SerializeField] private GameObject mondisplay;
     [SerializeField] private Animator slimeAnimation;
-    
+
     private const string POTION_TAG = "potion";
     private const string SLIME_TAG = "slime";
     private const string NAMEPOTION_TAG = "namePotion";
@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     [SerializeField] private TextMeshProUGUI[] choiceText;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip typingSound;
+    [SerializeField]private AudioSource audioSource;
+    [SerializeField]private bool stopAudioSource;
+
     private Coroutine diaplayLineCoroutine;
     private void Awake()
     {
@@ -40,6 +45,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("found more tham 1 dialogue manager in the scence");
         }
         instance = this;
+        audioSource = this.gameObject.AddComponent<AudioSource>();
     }
 
     private void Start()
@@ -78,10 +84,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator DisplayLine(string line)
     {
         dialogueText.text = ""; //empty dia text
-
+        
         foreach (char letter in line.ToCharArray())
         {
             dialogueText.text += letter;
+            if (stopAudioSource)
+            {
+                audioSource.Stop();
+            }
+            audioSource.PlayOneShot(typingSound);
             yield return new WaitForSeconds(typingSpeed);
         }
     }
@@ -167,7 +178,6 @@ public class GameManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
-
 
     }
 
