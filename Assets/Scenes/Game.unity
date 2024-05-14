@@ -1702,6 +1702,7 @@ MonoBehaviour:
   potion: {fileID: 1617931097}
   mondisplay: {fileID: 0}
   slimeAnimation: {fileID: 627893082}
+  sfx: {fileID: 8300000, guid: 24b935d2d4788db4d8abd144b686e459, type: 3}
   inkJSON: {fileID: 4900000, guid: b137cc74dab69c24381ae9c364de2944, type: 3}
   choices:
   - {fileID: 597116267}

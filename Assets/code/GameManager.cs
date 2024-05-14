@@ -20,11 +20,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Animator potion;
     [SerializeField] private GameObject mondisplay;
     [SerializeField] private Animator slimeAnimation;
+    [SerializeField] private AudioClip sfx;
 
     private const string POTION_TAG = "potion";
     private const string SLIME_TAG = "slime";
     private const string NAMEPOTION_TAG = "namePotion";
-
+    private const string SFX_TAG = "sfx";
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
@@ -88,11 +89,11 @@ public class GameManager : MonoBehaviour
         foreach (char letter in line.ToCharArray())
         {
             dialogueText.text += letter;
-            if (stopAudioSource)
-            {
-                audioSource.Stop();
-            }
-            audioSource.PlayOneShot(typingSound);
+//            if (stopAudioSource)
+//            {
+//                audioSource.Stop();
+//            }
+//            audioSource.PlayOneShot(typingSound);
             yield return new WaitForSeconds(typingSpeed);
         }
     }
@@ -119,6 +120,9 @@ public class GameManager : MonoBehaviour
                     break;
                 case NAMEPOTION_TAG:
                     namePotion.text = tagValue;
+                    break;
+                case SFX_TAG:
+                    audioSource.PlayOneShot(sfx);
                     break;
             }
         }
