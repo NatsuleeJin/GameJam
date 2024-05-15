@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip typingSound;
     [SerializeField]private AudioSource audioSource;
     [SerializeField]private bool stopAudioSource;
+    [SerializeField]private bool isChoices = false;
 
     private Coroutine diaplayLineCoroutine;
     private void Awake()
@@ -130,13 +131,9 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-
-
-        if (Input.GetKeyDown(KeyCode.Space))//  || Input.GetKeyDown(KeyCode.Mouse0) )
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.Mouse0) && !isChoices) )
         {
-
             ContinueStory();
-
         }
 
     }
@@ -144,7 +141,6 @@ public class GameManager : MonoBehaviour
     void LoadStory()
     {
         currentStory = new Story(inkJSON.text);
-
     }
 
 
@@ -152,6 +148,11 @@ public class GameManager : MonoBehaviour
     {
         List<Choice> currentChoices = currentStory.currentChoices;
 
+        if (currentChoices.Count != 0)
+        {
+            isChoices = true;
+        }
+        
         if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("More that UI can support. No. of choices given:" + currentChoices.Count);
@@ -166,10 +167,11 @@ public class GameManager : MonoBehaviour
             index++;
         }
         //go to remaining choice and make sure they're hidden
-               for (int i = index; i < choices.Length; i++)
-               {
-                   choices[i].gameObject.SetActive(false);
-               }
+        for (int i = index; i < choices.Length; i++)
+        {
+            choices[i].gameObject.SetActive(false);
+        }
+        
         StartCoroutine(SelectFirstChoice());
     }
 
@@ -182,7 +184,7 @@ public class GameManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
-
+        isChoices = false;
     }
 
 }
