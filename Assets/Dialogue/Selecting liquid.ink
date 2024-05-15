@@ -61,6 +61,7 @@ Maybe we need another substance
     *[Pink] #potion: pinkPotion #namePotion: UwU #sfx: potionsound
         what the... #slime: pinkdust
        ->Ending4
+
 ==Ending1N== // all the text for ending1 is the same but the picture of the slime is different.
 //fade to black
 Yes now that it comes to this...
