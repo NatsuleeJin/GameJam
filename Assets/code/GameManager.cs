@@ -16,16 +16,20 @@ public class GameManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Story currentStory;
+    [SerializeField] private Animator bgImg;
     [SerializeField] private TextMeshProUGUI namePotion;
     [SerializeField] private Animator potion;
     [SerializeField] private GameObject mondisplay;
     [SerializeField] private Animator slimeAnimation;
     [SerializeField] private AudioClip sfx;
+    [SerializeField] private GameObject fade;
 
+    private const string BGIMG_TAG = "bgImg";
     private const string POTION_TAG = "potion";
     private const string SLIME_TAG = "slime";
     private const string NAMEPOTION_TAG = "namePotion";
     private const string SFX_TAG = "sfx";
+
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
@@ -35,8 +39,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioClip typingSound;
-    [SerializeField]private AudioSource audioSource;
-    [SerializeField]private bool stopAudioSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private bool stopAudioSource;
+    [SerializeField] private bool isChoices = false;
 
     private Coroutine diaplayLineCoroutine;
     private void Awake()
@@ -51,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
+        fade.SetActive(true);
         LoadStory();
 
         choiceText = new TextMeshProUGUI[choices.Length];
@@ -112,6 +117,9 @@ public class GameManager : MonoBehaviour
 
             switch (tagKey)
             {
+                case BGIMG_TAG:
+                    bgImg.Play(tagValue);
+                    break;
                 case POTION_TAG:
                     potion.Play(tagValue);
                     break;
@@ -130,27 +138,28 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-
-
-        if (Input.GetKeyDown(KeyCode.Space))//  || Input.GetKeyDown(KeyCode.Mouse0) )
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.Mouse0) && !isChoices))
         {
-
+            fade.SetActive(false);
             ContinueStory();
-
         }
 
     }
 
     void LoadStory()
     {
+        
         currentStory = new Story(inkJSON.text);
-
     }
-
 
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
+        
+        if (currentChoices.Count != 0)
+        {
+            isChoices = true;
+        }
 
         if (currentChoices.Count > choices.Length)
         {
@@ -166,10 +175,11 @@ public class GameManager : MonoBehaviour
             index++;
         }
         //go to remaining choice and make sure they're hidden
-               for (int i = index; i < choices.Length; i++)
-               {
-                   choices[i].gameObject.SetActive(false);
-               }
+        for (int i = index; i < choices.Length; i++)
+        {
+            choices[i].gameObject.SetActive(false);
+        }
+
         StartCoroutine(SelectFirstChoice());
     }
 
@@ -182,7 +192,7 @@ public class GameManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
-
+        isChoices = false;
     }
 
 }
