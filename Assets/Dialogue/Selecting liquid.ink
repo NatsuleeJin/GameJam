@@ -1,14 +1,14 @@
 #slime: default
 Alright let’s see what we have here…
 (Please select the color button on the right side)
-   *[Blue] #potion: bluePotion #namePotion: Sprite #sfx: potionsound
-        Fizzy...
+   *[Blue] #potion: bluePotion #namePotion: Sprite #sfx: potionsound #slime: blue1
+        Fizzy... #potion: blank #namePotion: 
         ->chooseblue
-    *[Red] #potion: redPotion #namePotion: Meaty #sfx: potionsound
-        Smell like porkchop
+    *[Red] #potion: redPotion #namePotion: Meaty #sfx: potionsound #slime: red1
+        Smell like porkchop #potion: blank #namePotion: 
         ->choosered
-    *[Pink] #potion: pinkPotion #namePotion: UwU #sfx: potionsound
-        This smell... dangerous
+    *[Pink] #potion: pinkPotion #namePotion: UwU #sfx: potionsound #slime: pink1
+        This smell... dangerous #potion: blank #namePotion: 
         ->choosepink
 == chooseblue ==
 I don’t think this is enough #potion: blank #namePotion: 
@@ -72,8 +72,7 @@ Maybe we need another substance
 #vdo: End1P
 ->END
 ==Ending2==
-.#bgImg: End2_Ani
-.#vdo: End2
+#vdo: End2
 ->END
 ==Ending3==
 #vdo: End3

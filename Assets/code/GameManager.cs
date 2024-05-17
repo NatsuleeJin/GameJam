@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Animator bgImg;
     [SerializeField] private TextMeshProUGUI namePotion;
     [SerializeField] private Animator potion;
-    [SerializeField] private GameObject fullImg;
     [SerializeField] private Animator slimeAnimation;
     [SerializeField] private GameObject fade;
 
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip bgMusic;
     [SerializeField] private AudioSource bgSource;
     [SerializeField] private bool stopAudioSource;
-    [SerializeField]private bool isChoices = false;
+    
 
     private Coroutine diaplayLineCoroutine;
     private void Awake()
@@ -66,7 +65,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         fade.SetActive(true);
-        fullImg.SetActive(false);
         choiceHolder.SetActive(false);
         bgSource.PlayOneShot(bgMusic);
         LoadStory();
@@ -129,7 +127,6 @@ public class GameManager : MonoBehaviour
             switch (tagKey)
             {
                 case BGIMG_TAG:
-                    fullImg.SetActive(true);
                     if (stopAudioSource)
                     {
                         bgSource.Stop();
