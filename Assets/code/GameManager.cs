@@ -5,6 +5,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -19,9 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Animator bgImg;
     [SerializeField] private TextMeshProUGUI namePotion;
     [SerializeField] private Animator potion;
-    [SerializeField] private GameObject mondisplay;
+    [SerializeField] private GameObject fullImg;
     [SerializeField] private Animator slimeAnimation;
-    [SerializeField] private AudioClip sfx;
     [SerializeField] private GameObject fade;
 
     private const string BGIMG_TAG = "bgImg";
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     private const string SLIME_TAG = "slime";
     private const string NAMEPOTION_TAG = "namePotion";
     private const string SFX_TAG = "sfx";
+    private const string VDO_TAG = "vdo";
 
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
@@ -36,12 +37,17 @@ public class GameManager : MonoBehaviour
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     [SerializeField] private TextMeshProUGUI[] choiceText;
+    [SerializeField] private GameObject choiceHolder;
+    [SerializeField] private bool isChoices = false;
 
     [Header("Audio")]
     [SerializeField] private AudioClip typingSound;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource typingSource;
+    [SerializeField] private AudioClip sfxAudio;
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip bgMusic;
+    [SerializeField] private AudioSource bgSource;
     [SerializeField] private bool stopAudioSource;
-    [SerializeField] private bool isChoices = false;
 
     private Coroutine diaplayLineCoroutine;
     private void Awake()
@@ -51,12 +57,17 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("found more tham 1 dialogue manager in the scence");
         }
         instance = this;
-        audioSource = this.gameObject.AddComponent<AudioSource>();
+        typingSource = this.gameObject.AddComponent<AudioSource>();
+        sfxSource = this.gameObject.AddComponent<AudioSource>();
+        bgSource = this.gameObject.AddComponent<AudioSource>();
     }
 
     private void Start()
     {
         fade.SetActive(true);
+        fullImg.SetActive(false);
+        choiceHolder.SetActive(false);
+        bgSource.PlayOneShot(bgMusic);
         LoadStory();
 
         choiceText = new TextMeshProUGUI[choices.Length];
@@ -90,16 +101,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator DisplayLine(string line)
     {
         dialogueText.text = ""; //empty dia text
-        
+        typingSource.PlayOneShot(typingSound);
         foreach (char letter in line.ToCharArray())
         {
             dialogueText.text += letter;
-//            if (stopAudioSource)
-//            {
-//                audioSource.Stop();
-//            }
-//            audioSource.PlayOneShot(typingSound);
             yield return new WaitForSeconds(typingSpeed);
+        }
+        if (stopAudioSource)
+        {
+            typingSource.Stop();
         }
     }
 
@@ -118,6 +128,11 @@ public class GameManager : MonoBehaviour
             switch (tagKey)
             {
                 case BGIMG_TAG:
+                    fullImg.SetActive(true);
+                    if (stopAudioSource)
+                    {
+                        bgSource.Stop();
+                    }
                     bgImg.Play(tagValue);
                     break;
                 case POTION_TAG:
@@ -130,7 +145,10 @@ public class GameManager : MonoBehaviour
                     namePotion.text = tagValue;
                     break;
                 case SFX_TAG:
-                    audioSource.PlayOneShot(sfx);
+                    sfxSource.PlayOneShot(sfxAudio);
+                    break;  
+                case VDO_TAG:
+                    SceneManager.LoadScene(tagValue);
                     break;
             }
         }
@@ -141,6 +159,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.Mouse0) && !isChoices))
         {
             fade.SetActive(false);
+            
             ContinueStory();
         }
 
@@ -154,6 +173,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayChoices()
     {
+        choiceHolder.gameObject.SetActive(true);
         List<Choice> currentChoices = currentStory.currentChoices;
         
         if (currentChoices.Count != 0)
