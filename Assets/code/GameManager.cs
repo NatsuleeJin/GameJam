@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip bgMusic;
     [SerializeField] private AudioSource bgSource;
     [SerializeField] private bool stopAudioSource;
+    [SerializeField]private bool isChoices = false;
 
     private Coroutine diaplayLineCoroutine;
     private void Awake()
@@ -156,11 +157,11 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.Mouse0) && !isChoices))
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.Mouse0) && !isChoices) )
         {
-            fade.SetActive(false);
-            
-            ContinueStory();
+
+      		fade.SetActive(false);
+     	 	ContinueStory();
         }
 
     }
@@ -181,6 +182,11 @@ public class GameManager : MonoBehaviour
             isChoices = true;
         }
 
+        if (currentChoices.Count != 0)
+        {
+            isChoices = true;
+        }
+        
         if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("More that UI can support. No. of choices given:" + currentChoices.Count);
