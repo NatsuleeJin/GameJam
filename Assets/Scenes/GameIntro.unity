@@ -976,8 +976,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294441155
+  m_fontColor: {r: 0.7647059, g: 0.972549, b: 0.96862745, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1110,8 +1110,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294441155
+  m_fontColor: {r: 0.7647059, g: 0.972549, b: 0.96862745, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1227,7 +1227,6 @@ MonoBehaviour:
   bgImg: {fileID: 423820702}
   namePotion: {fileID: 0}
   potion: {fileID: 0}
-  fullImg: {fileID: 1068080240}
   slimeAnimation: {fileID: 0}
   fade: {fileID: 868371066}
   inkJSON: {fileID: 4900000, guid: fb5c64d53c954bf4b80db69f20fc1b48, type: 3}
@@ -1235,13 +1234,14 @@ MonoBehaviour:
   - {fileID: 1887938091}
   choiceText: []
   choiceHolder: {fileID: 1887938091}
+  isChoices: 0
   typingSound: {fileID: 8300000, guid: 973661320a3796849ba17a7609aaa142, type: 3}
   typingSource: {fileID: 0}
-  bgMusic: {fileID: 0}
-  stopAudioSource: 1
-  isChoices: 0
   sfxAudio: {fileID: 0}
   sfxSource: {fileID: 0}
+  morph1Audio: {fileID: 0}
+  morph2Audio: {fileID: 0}
+  stopAudioSource: 1
 --- !u!1 &1651159228
 GameObject:
   m_ObjectHideFlags: 0

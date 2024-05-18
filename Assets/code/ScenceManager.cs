@@ -10,5 +10,10 @@ public class ScenceManager : MonoBehaviour
     public void LoadGame(string scenceName)
     {
         SceneManager.LoadScene(scenceName);
+        if (scenceName == "GameIntro")
+        {
+            Destroy(this.gameObject);
+        }
     }
+    
 }

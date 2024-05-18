@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     private const string SLIME_TAG = "slime";
     private const string NAMEPOTION_TAG = "namePotion";
     private const string SFX_TAG = "sfx";
+    private const string MORPH1_TAG = "morph1";
+    private const string MORPH2_TAG = "morph2";
     private const string VDO_TAG = "vdo";
 
     [Header("Ink JSON")]
@@ -44,8 +46,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource typingSource;
     [SerializeField] private AudioClip sfxAudio;
     [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioClip bgMusic;
-    [SerializeField] private AudioSource bgSource;
+    [SerializeField] private AudioClip morph1Audio;
+    [SerializeField] private AudioClip morph2Audio;
+    //   [SerializeField] private AudioClip bgMusic;
+    //   [SerializeField] private AudioSource bgSource;
     [SerializeField] private bool stopAudioSource;
     
 
@@ -59,14 +63,14 @@ public class GameManager : MonoBehaviour
         instance = this;
         typingSource = this.gameObject.AddComponent<AudioSource>();
         sfxSource = this.gameObject.AddComponent<AudioSource>();
-        bgSource = this.gameObject.AddComponent<AudioSource>();
+      //  bgSource = this.gameObject.AddComponent<AudioSource>();
     }
 
     private void Start()
     {
         fade.SetActive(true);
         choiceHolder.SetActive(false);
-        bgSource.PlayOneShot(bgMusic);
+      //  bgSource.PlayOneShot(bgMusic);
         LoadStory();
 
         choiceText = new TextMeshProUGUI[choices.Length];
@@ -127,16 +131,17 @@ public class GameManager : MonoBehaviour
             switch (tagKey)
             {
                 case BGIMG_TAG:
-                    if (stopAudioSource)
-                    {
-                        bgSource.Stop();
-                    }
+                 //   if (stopAudioSource)
+                 //   {
+                 //       bgSource.Stop();
+                 //   }
                     bgImg.Play(tagValue);
                     break;
                 case POTION_TAG:
                     potion.Play(tagValue);
                     break;
                 case SLIME_TAG:
+                    
                     slimeAnimation.Play(tagValue);
                     break;
                 case NAMEPOTION_TAG:
@@ -147,6 +152,12 @@ public class GameManager : MonoBehaviour
                     break;  
                 case VDO_TAG:
                     SceneManager.LoadScene(tagValue);
+                    break;
+                case MORPH1_TAG:
+                    sfxSource.PlayOneShot(morph1Audio);
+                    break;
+                case MORPH2_TAG:
+                    sfxSource.PlayOneShot(morph2Audio);
                     break;
             }
         }

@@ -4,5 +4,8 @@ The special liquid I receivied reminded me of you
 #bgImg: Intro2
 Don't worry, this time for sure
 An evolution never seen before...
-
- *[next]
+->next
+==next== 
+#vdo: Game
+->END
+ 
