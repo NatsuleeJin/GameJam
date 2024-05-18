@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource typingSource;
     [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioClip morph1Audio;
+    [SerializeField] private AudioSource morph1Source;
     [SerializeField] private AudioClip morph2Audio;
     [SerializeField] private bool stopAudioSource;
     
@@ -149,7 +149,8 @@ public class GameManager : MonoBehaviour
                     SceneManager.LoadScene(tagValue);
                     break;
                 case MORPH1_TAG:
-                    sfxSource.PlayOneShot(morph1Audio);
+                    //sfxSource.PlayOneShot(morph1Audio);
+                    morph1Source.Play();
                     break;
                 case MORPH2_TAG:
                     sfxSource.PlayOneShot(morph2Audio);
