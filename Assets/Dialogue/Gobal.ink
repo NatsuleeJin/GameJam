@@ -1,0 +1,1 @@
+VAR monster_name = ""
