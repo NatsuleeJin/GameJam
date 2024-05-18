@@ -215,6 +215,7 @@ public class GameManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
+        ContinueStory();
         isChoices = false;
     }
 
