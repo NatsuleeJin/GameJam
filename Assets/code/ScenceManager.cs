@@ -10,10 +10,16 @@ public class ScenceManager : MonoBehaviour
     public void LoadGame(string scenceName)
     {
         SceneManager.LoadScene(scenceName);
-        if (scenceName == "GameIntro")
-        {
-            Destroy(this.gameObject);
-        }
+    }
+
+    public void LoadGameScene()
+    {
+        StartCoroutine(LoadGameDelay());
     }
     
+    public IEnumerator LoadGameDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        SceneManager.LoadScene("GameIntro");
+    }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI namePotion;
     [SerializeField] private Animator potion;
     [SerializeField] private Animator slimeAnimation;
+    [SerializeField] private Image slimeImage;
     [SerializeField] private GameObject fade;
 
     private const string BGIMG_TAG = "bgImg";
@@ -42,14 +44,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isChoices = false;
 
     [Header("Audio")]
-    [SerializeField] private AudioClip typingSound;
     [SerializeField] private AudioSource typingSource;
-    [SerializeField] private AudioClip sfxAudio;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip morph1Audio;
     [SerializeField] private AudioClip morph2Audio;
-    //   [SerializeField] private AudioClip bgMusic;
-    //   [SerializeField] private AudioSource bgSource;
     [SerializeField] private bool stopAudioSource;
     
 
@@ -61,11 +59,8 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("found more tham 1 dialogue manager in the scence");
         }
         instance = this;
-        typingSource = this.gameObject.AddComponent<AudioSource>();
-        sfxSource = this.gameObject.AddComponent<AudioSource>();
-      //  bgSource = this.gameObject.AddComponent<AudioSource>();
     }
-
+    
     private void Start()
     {
         fade.SetActive(true);
@@ -104,7 +99,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator DisplayLine(string line)
     {
         dialogueText.text = ""; //empty dia text
-        typingSource.PlayOneShot(typingSound);
+        typingSource.Play();
         foreach (char letter in line.ToCharArray())
         {
             dialogueText.text += letter;
@@ -141,14 +136,14 @@ public class GameManager : MonoBehaviour
                     potion.Play(tagValue);
                     break;
                 case SLIME_TAG:
-                    
                     slimeAnimation.Play(tagValue);
+                    slimeImage.SetNativeSize();
                     break;
                 case NAMEPOTION_TAG:
                     namePotion.text = tagValue;
                     break;
                 case SFX_TAG:
-                    sfxSource.PlayOneShot(sfxAudio);
+                    sfxSource.Play();
                     break;  
                 case VDO_TAG:
                     SceneManager.LoadScene(tagValue);
