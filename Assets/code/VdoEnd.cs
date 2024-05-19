@@ -17,10 +17,17 @@ namespace code
         public bool ending4 = false;
         
         public VideoPlayer videoPlayer;
+        public string assetName;
 
         private void OnValidate()
         {
             videoPlayer = GetComponent<VideoPlayer>();
+        }
+
+        public void Start()
+        {
+            videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, assetName);
+            videoPlayer.Play();
         }
 
         public void OnEnable()
