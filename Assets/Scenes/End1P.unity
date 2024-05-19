@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 131235205}
   - component: {fileID: 131235206}
   m_Layer: 0
-  m_Name: End2
+  m_Name: End1P
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &696229180
 MonoBehaviour:
   m_ObjectHideFlags: 0
