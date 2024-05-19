@@ -204,6 +204,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fac344087c42efb9474005f0620700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ending1N: 1
+  ending1S: 0
+  ending1P: 0
+  ending2: 0
+  ending3: 0
+  ending4: 0
   videoPlayer: {fileID: 131235205}
 --- !u!1 &654196198
 GameObject:
@@ -329,7 +335,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &696229180
 MonoBehaviour:
   m_ObjectHideFlags: 0

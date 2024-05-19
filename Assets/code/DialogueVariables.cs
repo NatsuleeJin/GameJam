@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
 using Object = Ink.Runtime.Object;
 
 namespace code
 {
-    public class DialogueVariables
+    public class DialogueVariables 
     {
-        public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
+        public Dictionary<string, Object> variables { get; private set; }
+            
 
         public DialogueVariables(TextAsset loadGlobals)
         {
@@ -46,7 +48,7 @@ namespace code
 
         private void VariablesToStory(Story story)
         {
-            foreach (KeyValuePair<string, Ink.Runtime.Object> variable in variables)
+            foreach (KeyValuePair<string, Object> variable in variables)
             {
                 story.variablesState.SetGlobal(variable.Key,variable.Value);
             }

@@ -149,7 +149,6 @@ public class GameManager : MonoBehaviour
                     SceneManager.LoadScene(tagValue);
                     break;
                 case MORPH1_TAG:
-                    //sfxSource.PlayOneShot(morph1Audio);
                     morph1Source.Play();
                     break;
                 case MORPH2_TAG:
